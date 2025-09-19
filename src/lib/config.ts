@@ -3,7 +3,7 @@ import axios from "axios";
 import type { AxiosInstance, AxiosResponse } from "axios";
 
 export const getAdminApiConfig = (): AdminApiConfig => {
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_PROD_URL;
 
   if (!apiUrl) {
     throw new Error("VITE_API_URL is not defined in environment variables");

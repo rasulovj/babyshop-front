@@ -23,6 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useLocation } from "react-router";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -67,6 +68,11 @@ function SidebarProvider({
 }) {
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    setOpenMobile(false);
+  }, [location.pathname]);
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.

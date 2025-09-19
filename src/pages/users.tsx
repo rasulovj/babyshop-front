@@ -112,6 +112,7 @@ const UsersPage = () => {
 
   const fetchUsers = async () => {
     setLoading(true);
+
     try {
       const response = await axiosPrivate.get("/users");
 
@@ -129,6 +130,7 @@ const UsersPage = () => {
 
   const handleRefresh = async () => {
     setRefreshing(true);
+
     try {
       const response = await axiosPrivate.get("/users");
 
@@ -173,6 +175,7 @@ const UsersPage = () => {
       role: user.role,
       avatar: user.avatar,
     });
+
     setIsEditModalOpen(true);
   };
 
@@ -275,7 +278,7 @@ const UsersPage = () => {
               onClick={() => setIsAddModalOpen(true)}
               className="bg-blue-600 hover:bg-blue-700"
             >
-              <Plus className="mr-2 h-4 w-4" />
+              <Plus className="h-4 w-4" />
               Add User
             </Button>
           )}
@@ -321,6 +324,7 @@ const UsersPage = () => {
               <TableHead className="font-semibold">Actions</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody>
             {filteredUsers?.length > 0 ? (
               filteredUsers?.map((user) => (
@@ -340,8 +344,10 @@ const UsersPage = () => {
                       )}
                     </div>
                   </TableCell>
+
                   <TableCell className="font-medium">{user.name}</TableCell>
                   <TableCell className="text-gray-600">{user.email}</TableCell>
+
                   <TableCell>
                     <Badge
                       className={cn("capitalize", getRoleColor(user.role))}
@@ -349,6 +355,7 @@ const UsersPage = () => {
                       {user.role}
                     </Badge>
                   </TableCell>
+
                   <TableCell>
                     {new Date(user.createdAt).toLocaleDateString()}
                   </TableCell>
@@ -409,6 +416,7 @@ const UsersPage = () => {
           </TableBody>
         </Table>
       </div>
+
       {/* Add user Modal */}
       <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
         <DialogContent className="sm:max-w-[550px] max-h-[90vh] overflow-y-auto">
