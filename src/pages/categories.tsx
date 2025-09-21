@@ -234,56 +234,63 @@ const Categories = () => {
 
   return (
     <div className="p-5 space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-end gap-3">
-          <h1 className="text-3xl font-bold">Categories</h1>
-          <p className="text-sm font-medium">
-            Total <span className="font-bold">{total}</span>
-          </p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        {/* Title */}
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold">Categories</h1>
         </div>
-        <div className="flex items-center gap-3">
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 rounded-lg bg-muted/50 p-2 shadow-sm w-full md:w-auto">
           <Button
             variant="outline"
             onClick={handleRefresh}
             disabled={refreshing}
+            className="w-full sm:w-auto bg-background text-sm shadow-sm hover:bg-muted/10 focus:ring-2 focus:ring-ring"
           >
             <RefreshCw
               className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
             />
             {refreshing ? "Refreshing..." : "Refresh"}
           </Button>
+
           <Select value={sortOrder} onValueChange={handleSortChange}>
-            <SelectTrigger className="w-40 bg-background text-sm shadow-sm hover:bg-muted/10 focus:ring-2 focus:ring-ring">
+            <SelectTrigger
+              className="w-full sm:w-40 bg-background text-sm shadow-sm hover:bg-muted/10 focus:ring-2 focus:ring-ring"
+              aria-label="Sort order"
+            >
               <SelectValue placeholder="Sort Order" />
             </SelectTrigger>
-            <SelectContent className="">
+            <SelectContent>
               <SelectItem value="asc" className="flex items-center">
-                <span className="flex items-center">
-                  <ArrowUp className="mr-2 h-4 w-4" />
-                  Ascending
-                </span>
+                <ArrowUp className="mr-2 h-4 w-4" /> Ascending
               </SelectItem>
               <SelectItem value="desc" className="flex items-center">
-                <span className="flex items-center">
-                  <ArrowDown className="mr-2 h-4 w-4" />
-                  Descending
-                </span>
+                <ArrowDown className="mr-2 h-4 w-4" /> Descending
               </SelectItem>
             </SelectContent>
           </Select>
+
+          {/* Add Category */}
           {isAdmin && (
-            <Button onClick={() => setIsAddModalOpen(true)}>
+            <Button
+              onClick={() => setIsAddModalOpen(true)}
+              className="w-full sm:w-auto bg-primary text-primary-foreground shadow-sm hover:bg-primary/90"
+            >
               <Plus className="mr-2 h-4 w-4" /> Add Category
             </Button>
           )}
         </div>
       </div>
+
       {loading ? (
         <div className="flex justify-center items-center min-h-[400px]">
           <Loader2 className="h-8 w-8 animate-spin" />
         </div>
       ) : (
         <>
+          <p className="text-sm font-medium">
+            Total <span className="font-bold">{total}</span>
+          </p>
           <div className="rounded-md border">
             <Table>
               <TableHeader>

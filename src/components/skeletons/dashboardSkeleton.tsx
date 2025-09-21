@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader } from "../ui/card";
 
 const DashboardSkeleton = () => (
-  <div className="space-y-6">
-    <div className="h-8 w-1/4 bg-gray-200 animate-pulse rounded"></div>
+  <div className="space-y-4 p-2">
+    <div className="h-8 w-1/4 bg-gray-200 animate-pulse rounded mt-4"></div>
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {[...Array(4)].map((_, index) => (
         <Card key={index} className="bg-white/95 shadow-lg rounded-xl">

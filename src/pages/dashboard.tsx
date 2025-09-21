@@ -1,8 +1,13 @@
-import DashboardSkeleton from "@/components/skeletons/dashboardSkeleton";
-import { useAxiosPrivate } from "@/hooks/useAxiosPrivate";
-import type { StatsData } from "@/types/types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import {
+  Users,
+  ShoppingBag,
+  Tag,
+  Bookmark,
+  Package,
+  DollarSign,
+} from "lucide-react";
 import {
   BarChart,
   Bar,
@@ -16,16 +21,10 @@ import {
   PieChart,
   Pie,
 } from "recharts";
-import {
-  Users,
-  ShoppingBag,
-  Tag,
-  Bookmark,
-  Package,
-  DollarSign,
-} from "lucide-react";
+import type { StatsData } from "@/types/types";
+import DashboardSkeleton from "@/components/skeletons/dashboardSkeleton";
+import { useAxiosPrivate } from "@/hooks/useAxiosPrivate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import { StatsCard } from "@/components/statsCard";
 
 const COLORS = [
@@ -36,19 +35,10 @@ const COLORS = [
   "hsl(120, 60%, 50%)", // Green
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
 const Dashboard = () => {
   const [stats, setStats] = useState<StatsData | null>(null);
   const [loading, setLoading] = useState(true);
+
   const axiosPrivate = useAxiosPrivate();
 
   const formatCurrency = (amount: number) => {
@@ -75,20 +65,18 @@ const Dashboard = () => {
   }, [axiosPrivate]);
 
   return (
-    <div className="bg-gradient-to-br min-h-screen ">
+    <div className="min-h-screen ">
       {loading ? (
         <DashboardSkeleton />
       ) : (
-        <div className="p-5 space-y-6">
-          <h1 className="text-4xl font-bold text-gray-800">
+        <div className="p-4 space-y-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
             Dashboard OverView
           </h1>
+
           {stats && (
             <>
-              <motion.div
-                className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6"
-                variants={containerVariants}
-              >
+              <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
                 <StatsCard
                   title="Total Users"
                   value={stats.counts.users}
@@ -110,6 +98,7 @@ const Dashboard = () => {
                   href="/dashboard/categories"
                   className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300"
                 />
+
                 <StatsCard
                   title="Brands"
                   value={stats.counts.brands}
@@ -117,6 +106,7 @@ const Dashboard = () => {
                   href="/dashboard/brands"
                   className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300"
                 />
+
                 <StatsCard
                   title="Total Orders"
                   value={stats.counts.orders}
@@ -124,6 +114,7 @@ const Dashboard = () => {
                   href="/dashboard/orders"
                   className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300"
                 />
+
                 <StatsCard
                   title="Total Revenue"
                   value={formatCurrency(stats.counts.totalRevenue)}
@@ -131,18 +122,16 @@ const Dashboard = () => {
                   href="/dashboard/account"
                   className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300"
                 />
-              </motion.div>
+              </div>
 
-              <motion.div
-                className="grid gap-6 grid-cols-1 lg:grid-cols-2"
-                variants={containerVariants}
-              >
+              <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
                 <Card className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300">
                   <CardHeader>
                     <CardTitle className="text-lg font-semibold text-gray-800">
                       Categories Distribution
                     </CardTitle>
                   </CardHeader>
+
                   <CardContent className="h-96">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
@@ -159,6 +148,7 @@ const Dashboard = () => {
                             borderRadius: "8px",
                           }}
                         />
+
                         <Legend />
                         <Bar
                           dataKey="value"
@@ -220,9 +210,9 @@ const Dashboard = () => {
                     </ResponsiveContainer>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
 
-              <motion.div className="lg:col-span-2">
+              <div className="lg:col-span-2">
                 <Card className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300">
                   <CardHeader>
                     <CardTitle className="text-lg font-semibold text-gray-800">
@@ -263,7 +253,7 @@ const Dashboard = () => {
                     </ResponsiveContainer>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             </>
           )}
         </div>

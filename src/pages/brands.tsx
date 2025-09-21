@@ -167,21 +167,27 @@ const Brands = () => {
 
   return (
     <div className="p-5 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Brands</h1>
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <h1 className="text-xl md:text-3xl font-bold">Brands</h1>
+
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 rounded-lg bg-muted/50 p-2 shadow-sm w-full md:w-auto">
           <Button
             variant="outline"
             onClick={handleRefresh}
             disabled={refreshing}
+            className="w-full sm:w-auto"
           >
             <RefreshCw
               className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
             />
             {refreshing ? "Refreshing..." : "Refresh"}
           </Button>
+
           {isAdmin && (
-            <Button onClick={() => setIsAddModalOpen(true)}>
+            <Button
+              onClick={() => setIsAddModalOpen(true)}
+              className="w-full sm:w-auto"
+            >
               <Plus className="mr-2 h-4 w-4" /> Add Brand
             </Button>
           )}
